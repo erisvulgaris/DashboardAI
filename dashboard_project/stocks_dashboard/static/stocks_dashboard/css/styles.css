@@ -1,0 +1,22 @@
+/* stocks_dashboard/static/stocks_dashboard/css/styles.css */
+.stock-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.stock-table th, .stock-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.stock-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+.stock-table tr:nth-child(even){background-color: #f2f2f2;}
+.stock-table tr:hover {background-color: #ddd;}
+
+
+
+

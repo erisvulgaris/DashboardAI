@@ -1,0 +1,91 @@
+{% extends "base.html" %} <!-- Extend your base layout -->
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Bullish Stock Symbols</h2>
+    <table class="table table-hover table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Symbol</th>
+          <th>Current Price</th>
+          <th>Percentage of First Target</th>
+          <th>Stop Loss</th>
+          <th>First Target</th>
+          <th>Second Target</th>
+          <th>Target Met?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for symbol in bullish_symbols %}
+        <tr>
+          <td><a href="{% url 'stock_detail' symbol=symbol.symbol %}">{{ symbol.symbol }}</a></td>
+          <td>{{ symbol.current_price }}</td>
+          <td>{{ symbol.percentage }}%</td>
+          <td>{{ symbol.stop_loss }}</td>
+          <td>{{ symbol.first_target }}</td>
+          <td>{{ symbol.second_target }}</td>
+          <td>{{ symbol.target_met|yesno:"Yes,No" }}</td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2 class="mb-4">Futures & Options</h2>
+    <table class="table table-hover table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Symbol</th>
+          <th>Current Price</th>
+          <th>Percentage of First Target</th>
+
+          <th>Stop Loss</th>
+          <th>First Target</th>
+          <th>Second Target</th>
+          <th>Target Met?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for symbol in futures_options_symbols %}
+        <tr>
+          <td><a href="{% url 'stock_detail' symbol=symbol.symbol %}">{{ symbol.symbol }}</a></td>
+          <td>{{ symbol.current_price }}</td>
+          <td>{{ symbol.percentage }}%</td>
+          <td>{{ symbol.stop_loss }}</td>
+          <td>{{ symbol.first_target }}</td>
+          <td>{{ symbol.second_target }}</td>
+          <td>{{ symbol.target_met|yesno:"Yes,No" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2 class="mb-4">Previous Week Performance</h2>
+    <table class="table table-hover table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Symbol</th>
+          <th>Current Price</th>
+          <th>Percentage of First Target</th>
+          <th>Stop Loss</th>
+          <th>First Target</th>
+          <th>Second Target</th>
+          <th>Target Met?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for symbol in previous_week_symbols %}
+        <tr>
+          <td><a href="{% url 'stock_detail' symbol=symbol.symbol %}">{{ symbol.symbol }}</a></td>
+          <td>{{ symbol.current_price }}</td>
+          <td>{{ symbol.percentage }}%</td>
+          <td>{{ symbol.stop_loss }}</td>
+          <td>{{ symbol.first_target }}</td>
+          <td>{{ symbol.second_target }}</td>
+          <td>{{ symbol.target_met|yesno:"Yes,No" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}
