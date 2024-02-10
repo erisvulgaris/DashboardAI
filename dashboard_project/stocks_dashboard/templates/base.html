@@ -1,6 +1,10 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stocks Dashboard</title>
@@ -8,13 +12,114 @@
     <!-- Add more <link> or <script> tags for CSS and JS as needed -->
 {% load static %}
 <link rel="stylesheet" href="{% static 'stocks_dashboard/css/styles.css' %}">
+<script>
+let isScanning = false; // Flag to indicate scan status
 
+function startLoading() {
+  if (isScanning) {
+    alert("Scan is already in progress. Please wait until the current scan completes.");
+    return; // Exit the function if a scan is already in progress
+  }
+
+  isScanning = true; // Set flag to indicate scanning is in progress
+
+  const messages = [
+    "Loading AI v2.3...",
+    "Loading memory...",
+    "Loading Process 0x00738...",
+    "Loading process 0x0066923...",
+    "Scanning for the chart patterns...",
+    "Scanning for psychology...",
+    "Checking with model v2.5..."
+  ];
+
+  let progress = 0;
+  const loadingBar = document.getElementById('loadingBar');
+  const loadingText = document.createElement("p");
+  document.body.insertBefore(loadingText, document.body.firstChild); // Insert loading text at the top of the body
+  const totalSteps = messages.length;
+  const stepTime = Math.floor(Math.random() * (25000 - 5000 + 1) + 5000) / 100;
+
+  const interval = setInterval(() => {
+    progress++;
+    loadingBar.style.width = progress + '%';
+    if (progress % Math.ceil(100 / totalSteps) === 0) {
+      let messageIndex = Math.floor(progress / (100 / totalSteps)) - 1;
+      loadingText.innerText = messages[messageIndex] ? messages[messageIndex] : "Finalizing...";
+    }
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      loadingText.innerText = "Loading complete. Reloading page...";
+      setTimeout(() => {
+        location.reload();
+        isScanning = false; // Reset the flag after reloading
+      }, 1000);
+    }
+  }, stepTime);
+}
+</script>
+
+<style>
+body {
+  margin: 0;
+  padding-top: 100px; /* Ensure content starts below the loading bar area */
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.loading-container {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  position: fixed; /* Make the loading bar fixed at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; /* Fixed height for the loading bar area */
+  background-color: #e0e0e0;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.loading-bar {
+  width: 0%;
+  height: 30px;
+  background: linear-gradient(to right, #4caf50, #81c784);
+  transition: width 0.5s ease-in-out;
+  border-radius: 20px 0 0 20px;
+}
+
+.scan-btn {
+  height: 40px;
+  padding: 0 20px;
+  margin-left: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  font-weight: bold;
+  align-items: right;
+  justify-content: right;
+}
+
+.scan-btn:hover {
+  background-color: #66bb6a;
+}
+</style>
 
 
 </head>
 <body>
 
-<!-- Loading Bar Container -->
+<div class="loading-container">
+  <div class="loading-bar" id="loadingBar"></div>
+  <button onclick="startLoading()" class="scan-btn">Scan Now</button>
+</div>
+
+
+
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
